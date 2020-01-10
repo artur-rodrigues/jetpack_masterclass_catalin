@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Dogs</string>
+    <string name="list_fragment">List Fragment</string>
+    <string name="detail_fragment">Detail Fragment</string>
+    <string name="dog_name">Dog Name</string>
+    <string name="life_span">Life Span</string>
+    <string name="description_item_image">It\'s a dog</string>
+    <string name="dog_purpose">Dog Purpose</string>
+    <string name="dog_temperament">Dog Temperament</string>
+
 </resources>
