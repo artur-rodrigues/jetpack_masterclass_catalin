@@ -7,6 +7,7 @@ import com.example.dogs.R
 import com.example.dogs.model.entities.DogBreed
 import com.example.dogs.model.network.services.DogsApiService
 import com.example.dogs.model.room.DogDatabase
+import com.example.dogs.utils.NotificationsHelper
 import com.example.dogs.utils.SharedPreferencesHelper
 import com.example.dogs.utils.toast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -64,6 +65,8 @@ class ListViewModel(application: Application): BaseViewModel(application) {
 
                 override fun onSuccess(list: List<DogBreed>) {
                     storeDogsLocally(list)
+                    getApplication<Application>().toast("Dogs retrivied from endpoin")
+                    NotificationsHelper(getApplication()).createNotification()
                 }
 
                 override fun onError(e: Throwable) {
