@@ -2,9 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="dog"
+            type="com.example.dogs.model.entities.DogBreed" />
+
+        <variable
+            name="listener"
+            type="com.example.dogs.view.DogClickListener" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:onClick="@{(view) -> listener.onDogClicked(view, dog.uuid)}"
         android:orientation="horizontal">
 
         <ImageView
@@ -13,7 +24,8 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:padding="4dp"
-            tools:src="@mipmap/ic_dog_icon"
+            android:imageUrl="@{dog.imageUrl}"
+            tools:src="@mipmap/ic_dog_icon_round"
             android:contentDescription="@string/description_item_image"/>
 
         <LinearLayout
@@ -28,7 +40,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dog_name"
+                android:text="@{dog.dogBreed}"
                 style="@style/Title"/>
 
             <Space
@@ -39,7 +51,7 @@
                 android:id="@+id/lifeSpan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/life_span"
+                android:text="@{dog.lifeSpan}"
                 style="@style/Text"/>
 
         </LinearLayout>

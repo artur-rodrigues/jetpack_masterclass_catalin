@@ -1,5 +1,4 @@
-package com.example.dogs.view
-
+package com.example.dogs.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dogs.R
+import com.example.dogs.utils.gone
+import com.example.dogs.utils.visible
+import com.example.dogs.view.adapters.DogsListAdapter
 import com.example.dogs.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -19,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class ListFragment : Fragment() {
 
     private lateinit var viewModel: ListViewModel
-//    private var dogsListAdapter = DogsListAdapter(arrayListOf())
     private lateinit var dogsListAdapter: DogsListAdapter
 
     override fun onCreateView(
@@ -37,9 +38,18 @@ class ListFragment : Fragment() {
 
         dogsList.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = DogsListAdapter(arrayListOf()).also {
+            adapter = DogsListAdapter(arrayListOf())
+                .also {
                 dogsListAdapter = it
             }
+        }
+
+        refreshLayout.setOnRefreshListener {
+            dogsList.gone()
+            listError.gone()
+            loadingProgress.visible()
+            viewModel.refreshBypassCache()
+            refreshLayout.isRefreshing = false
         }
 
         observeViewModel()
@@ -47,23 +57,27 @@ class ListFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.dogs.observe(this, Observer {dogs ->
-            dogs?.let {
-                dogsList.visibility = View.VISIBLE
-                dogsListAdapter.updateDogList(it)
+            dogs.run {
+                dogsList.visible()
+                dogsListAdapter.updateDogList(this)
             }
         })
 
         viewModel.dogsLoadError.observe(this, Observer {isError ->
-            isError?.let {
-                listError.visibility = if(it) View.VISIBLE else View.GONE
+            isError.run {
+                if(this) {
+                    listError.visible()
+                } else {
+                    listError.gone()
+                }
             }
         })
 
         viewModel.loading.observe(this, Observer {isLoading ->
-            isLoading?.let {
-                loadingProgress.visibility = if(it) {
-                    listError.visibility = View.GONE
-                    dogsList.visibility = View.GONE
+            isLoading.run {
+                loadingProgress.visibility = if(this) {
+                    listError.gone()
+                    dogsList.gone()
                     View.VISIBLE
                 } else {
                     View.GONE

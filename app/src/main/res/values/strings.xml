@@ -7,5 +7,7 @@
     <string name="description_item_image">It\'s a dog</string>
     <string name="dog_purpose">Dog Purpose</string>
     <string name="dog_temperament">Dog Temperament</string>
+    <string name="loading_error">An error occurred while loading</string>
+    <string name="dogs_retrieved">Dogs retrieved from database</string>
 
 </resources>
