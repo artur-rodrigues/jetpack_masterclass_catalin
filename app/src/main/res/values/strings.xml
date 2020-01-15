@@ -10,4 +10,13 @@
     <string name="loading_error">An error occurred while loading</string>
     <string name="dogs_retrieved">Dogs retrieved from database</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_settings">Settings</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="share">Share</string>
+    <string name="hint_to">To:</string>
+    <string name="btn_send_sms">Send SMS</string>
+    <string name="btn_cancel">Cancel</string>
+
 </resources>
